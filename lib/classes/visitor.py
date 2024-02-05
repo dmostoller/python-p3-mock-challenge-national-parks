@@ -1,4 +1,3 @@
-from classes.trip import Trip
 
 
 class Visitor:
@@ -7,18 +6,19 @@ class Visitor:
 
     @property
     def name(self):
-        return self.name
+        return self._name
 
     @name.setter
-    def name(self, new_name):
-        if isinstance(new_name, str) and 0 < len(new_name) <= 15:
-            self.name = new_name
+    def name(self, value):
+        if isinstance(value, str) and 1 <= len(value) <= 15:
+            self._name = value
         else:
-            raise Exception("name must be a string between 1 and 15 characters in leng")
+            raise Exception("name must be a string between 1 and 15 characters in length")
 
 
     def trips(self):
-        pass
+        from classes.trip import Trip
+        return [trip for trip in Trip.all if trip.visitor == self]
 
     def national_parks(self):
         pass

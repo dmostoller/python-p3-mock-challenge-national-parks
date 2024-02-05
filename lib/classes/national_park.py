@@ -1,5 +1,3 @@
-from classes.trip import Trip
-
 
 class NationalPark:
 
@@ -10,22 +8,22 @@ class NationalPark:
     
     @property
     def name(self):
-        return self.name
+        return self._name
     
     @name.setter
-    def name(self, new_name):
-        if not hasattr(self, 'name') and isinstance(new_name, str):
-            self.name = new_name
+    def name(self, value):
+        if not hasattr(self, 'name') and isinstance(value, str):
+            self._name = value
         else:
             raise Exception("name must be a string")
             
-    
-    
+        
     def trips(self):
-        pass
+        from classes.trip import Trip
+        return [trip for trip in Trip.all if trip.national_park == self]
 
     def visitors(self):
-        pass
+        return list(set([trip.visitor for trip in self.trips()]))
 
     def total_visits(self):
         pass
