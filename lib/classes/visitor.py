@@ -1,5 +1,4 @@
 
-
 class Visitor:
     def __init__(self, name):
         self.name = name
@@ -15,10 +14,9 @@ class Visitor:
         else:
             raise Exception("name must be a string between 1 and 15 characters in length")
 
-
     def trips(self):
         from classes.trip import Trip
         return [trip for trip in Trip.all if trip.visitor == self]
 
     def national_parks(self):
-        pass
+        return list(set([trip.national_park for trip in self.trips()]))

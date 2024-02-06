@@ -1,3 +1,4 @@
+from collections import Counter
 
 class NationalPark:
 
@@ -5,6 +6,8 @@ class NationalPark:
 
     def __init__(self, name):
         self.name = name
+
+        self.__class__.all.append(self)
     
     @property
     def name(self):
@@ -26,11 +29,15 @@ class NationalPark:
         return list(set([trip.visitor for trip in self.trips()]))
 
     def total_visits(self):
-        pass
+        return len([trip for trip in self.trips()])
 
     def best_visitor(self):
-        pass
+        count = Counter(self.visitors())
+        return max(count, key=count.get)
 
+    
     @classmethod
     def most_visited(cls):
-        pass
+        count = Counter(cls.all)
+        return max(count, key=count.get)
+        
